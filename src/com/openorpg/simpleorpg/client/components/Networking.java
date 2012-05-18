@@ -3,7 +3,6 @@ package com.openorpg.simpleorpg.client.components;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.PriorityBlockingQueue;
 
 import com.artemis.Component;
 

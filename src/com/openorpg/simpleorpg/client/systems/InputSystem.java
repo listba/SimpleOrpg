@@ -19,6 +19,7 @@ import com.artemis.utils.ImmutableBag;
 import com.openorpg.simpleorpg.client.components.ColorComponent;
 import com.openorpg.simpleorpg.client.components.DrawableText;
 import com.openorpg.simpleorpg.client.components.Location;
+import com.openorpg.simpleorpg.client.components.Movement;
 import com.openorpg.simpleorpg.client.components.Networking;
 import com.openorpg.simpleorpg.client.components.ResourceRef;
 import com.openorpg.simpleorpg.client.components.Timer;
@@ -32,6 +33,7 @@ public class InputSystem extends BaseEntitySystem implements KeyListener {
 	private ComponentMapper<Location> locationMapper;
 	private TrueTypeFont inputFont;
 	private Character c = null;
+	private ComponentMapper<Movement> movementMapper;
 	
 	private boolean key_back = false,
 					key_enter = false,
@@ -52,6 +54,7 @@ public class InputSystem extends BaseEntitySystem implements KeyListener {
 		timerMapper = new ComponentMapper<Timer>(Timer.class, world);
 		networkingMapper = new ComponentMapper<Networking>(Networking.class, world);
 		locationMapper = new ComponentMapper<Location>(Location.class, world);
+		movementMapper = new ComponentMapper<Movement>(Movement.class, world);
 		inputFont = new TrueTypeFont(new java.awt.Font("Verdana", Font.PLAIN, 12), false);
 		container.getInput().addKeyListener(this);
 	}
@@ -65,10 +68,12 @@ public class InputSystem extends BaseEntitySystem implements KeyListener {
 	@Override
 	protected void processEntities(ImmutableBag<Entity> entities) {
 		Entity inputEntity = null;
-		Entity youEntity = world.getTagManager().getEntity("YOU");
-		Location youLocation = locationMapper.get(youEntity);
-		Networking net = networkingMapper.get(youEntity);
+		Entity yourEntity = world.getTagManager().getEntity("YOU");
+		Location yourLocation = locationMapper.get(yourEntity);
+		Networking net = networkingMapper.get(yourEntity);
 		ArrayBlockingQueue<String> sendMessages = net.getSendMessages();
+		
+		// Alphanumeric input interface (when you press a key chat shows up)
 		if (world.getTagManager().getEntity("INPUT") != null) {
 			inputEntity = world.getTagManager().getEntity("INPUT");
 		}
@@ -78,7 +83,7 @@ public class InputSystem extends BaseEntitySystem implements KeyListener {
 				inputEntity = world.createEntity();
 				inputEntity.setTag("INPUT");
 				inputEntity.addComponent(new DrawableText(c.toString()));
-				inputEntity.addComponent(new Timer(100));
+				inputEntity.addComponent(new Timer(25));
 				inputEntity.refresh();
 			} else {
 				DrawableText drawableText = drawableTextMapper.get(inputEntity);
@@ -86,7 +91,10 @@ public class InputSystem extends BaseEntitySystem implements KeyListener {
 					drawableText.setText(drawableText.getText() + c);
 			}
 		}
+		// You can't hold down a letter for input
+		c = null;
 		
+		// Backspace
 		if (key_back && inputEntity != null) {
 			Timer timer = timerMapper.get(inputEntity);
 			if (timer.isFinished()) {
@@ -97,6 +105,7 @@ public class InputSystem extends BaseEntitySystem implements KeyListener {
 			}
 		}
 		
+		// Enter
 		if (key_enter && inputEntity != null) {
 			DrawableText drawableText = drawableTextMapper.get(inputEntity);
 			
@@ -104,29 +113,53 @@ public class InputSystem extends BaseEntitySystem implements KeyListener {
 			inputEntity.delete();
 		}
 		
-		if (key_up) {
-			youLocation.getPosition().set(youLocation.getPosition().x, youLocation.getPosition().y-1);
-			sendMessages.add("MOVE:UP");
-		} else if (key_down) {
-			youLocation.getPosition().set(youLocation.getPosition().x, youLocation.getPosition().y+1);
-			sendMessages.add("MOVE:DOWN");
-		} else if (key_left) {
-			youLocation.getPosition().set(youLocation.getPosition().x-1, youLocation.getPosition().y);
-			sendMessages.add("MOVE:LEFT");
-		} else if (key_right) {
-			youLocation.getPosition().set(youLocation.getPosition().x+1, youLocation.getPosition().y);
-			sendMessages.add("MOVE:RIGHT");
+		
+		// Your movement
+		if (yourLocation != null) {
+			int newX = (int)yourLocation.getPosition().x, newY = (int)yourLocation.getPosition().y;
+			String moveMessage = "";
+			
+			if (key_up) {
+				moveMessage = "MOVE:UP";
+				newY -= 1;
+			} else if (key_down) {
+				moveMessage = "MOVE:DOWN";
+				newY += 1;
+			} else if (key_left) {
+				moveMessage = "MOVE:LEFT";
+				newX -= 1;
+			} else if (key_right) {
+				moveMessage = "MOVE:RIGHT";
+				newX += 1;
+			}
+			
+			if (key_up || key_down || key_left || key_right) {
+				Movement yourMovement;
+				if (movementMapper.get(yourEntity) != null) {
+					yourMovement = movementMapper.get(yourEntity);
+				} else {
+					yourMovement = new Movement(100);
+					yourEntity.addComponent(yourMovement);
+					yourEntity.refresh();
+				}
+				
+				if (yourMovement.isFinished()) {
+					sendMessages.add(moveMessage);
+					yourLocation.getPosition().set(newX, newY);
+					yourMovement.reset();
+				}
+			}
 		}
 
-		c = null;
+		
 	}
 
 	@Override
 	public void keyPressed(int key, char c) {
-
-		Entity inputEntity = null;
-		if (world.getTagManager().getEntity("INPUT") != null) {
-			inputEntity = world.getTagManager().getEntity("INPUT");
+		
+		logger.info((int)c + " " + key);
+		if (c > 31 && c < 127) {
+			this.c = c;
 		}
 		
 		switch (key) {
@@ -157,9 +190,6 @@ public class InputSystem extends BaseEntitySystem implements KeyListener {
 			case Input.KEY_RCONTROL:
 			case Input.KEY_LALT:
 			case Input.KEY_RALT:
-				break;
-			default:
-				this.c = c;
 				break;
 		}
 	}

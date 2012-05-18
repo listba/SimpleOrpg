@@ -17,7 +17,8 @@ public class JoinMapHandler extends MessageHandler {
 			synchronized(this) {
 				Player yourPlayer = players.get(socket);
 				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-				out.println("WARP:" + yourPlayer.getMapRef() + "," + yourPlayer.getX() + "," + yourPlayer.getY());
+				String warpMessage = "WARP:" + yourPlayer.getMapRef() + "," + yourPlayer.getX() + "," + yourPlayer.getY();
+				out.println(warpMessage);
 				Map map = maps.get(yourPlayer.getMapRef());		
 				
 				// Send all other players on the map your player
@@ -38,7 +39,6 @@ public class JoinMapHandler extends MessageHandler {
 														     player.getY() + "\n";
 					
 					new PrintWriter(otherSocket.getOutputStream(), true).println(youJoinedMap);
-					
 				}
 				out.println(otherJoinedMap);
 				

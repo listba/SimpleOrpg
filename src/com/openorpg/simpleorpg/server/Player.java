@@ -4,6 +4,7 @@ public class Player {
 	private String name;
 	private String ref;
 	private String mapRef;
+	private Long lastMovedTime=0l;
 	private int x=0, y=0;
 	private static int numPlayers = 0;
 	private int id;
@@ -65,6 +66,14 @@ public class Player {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public Long getLastMovedTime() {
+		return lastMovedTime;
+	}
+
+	public void setLastMovedTime(Long lastMovedTime) {
+		this.lastMovedTime = lastMovedTime;
 	}
 	
 

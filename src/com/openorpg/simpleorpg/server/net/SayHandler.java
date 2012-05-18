@@ -19,24 +19,17 @@ public class SayHandler extends MessageHandler {
 			if (payload.length() > 50) { 
 				payload = payload.substring(0, 50) + "..."; 
 			}
-			String message = "SAY:" + yourPlayer.getId() + "," + payload;
-			String youMessage = "SAY:YOU," + payload;
+			String sayMessage = "SAY:" + yourPlayer.getId() + "," + payload;
+			String youSayMessage = "SAY:YOU," + payload;
 			logger.info(payload.length());
-			logger.info(message);
-			for (Socket playerSocket : players.keySet()) {
-				try {
-					PrintWriter playerOut = new PrintWriter(playerSocket.getOutputStream(), true);
-					if (players.get(playerSocket).getId() != yourPlayer.getId()) {
-						playerOut.println(message);
-					} else {
-						playerOut.println(youMessage);
-					}
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-				
+			logger.info(sayMessage);
+			try {
+				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+				out.println(youSayMessage);
+			} catch (Exception ex) {
+				logger.error(ex);
 			}
-			
+			sendAllMapBut(socket, sayMessage);
 		}
 	}
 

@@ -1,7 +1,7 @@
 package com.openorpg.simpleorpg.server.net;
 
-import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Date;
 
 import com.openorpg.simpleorpg.server.Map;
 import com.openorpg.simpleorpg.server.Player;
@@ -18,31 +18,31 @@ public class MoveHandler extends MessageHandler {
 		synchronized(this) {
 			Player yourPlayer = players.get(socket);
 			Map map = maps.get(yourPlayer.getMapRef());
-			
+			int newX = yourPlayer.getX(), newY = yourPlayer.getY();
 			if (payload.equals("UP")) {
-				yourPlayer.setLocation(yourPlayer.getX(), yourPlayer.getY()-1);
+				newY -= 1;
 			} else if (payload.equals("DOWN")) {
-				yourPlayer.setLocation(yourPlayer.getX(), yourPlayer.getY()+1);
+				newY += 1;
 			} else if (payload.equals("LEFT")) {
-				yourPlayer.setLocation(yourPlayer.getX()-1, yourPlayer.getY());
+				newX -= 1;
 			} else if (payload.equals("RIGHT")) {
-				yourPlayer.setLocation(yourPlayer.getX()+1, yourPlayer.getY());
+				newX += 1;
 			}
-			String playerMoved = "PLAYER_MOVED:" + yourPlayer.getId() + "," + 
-												   yourPlayer.getX() + "," + 
-												   yourPlayer.getY();
-			for (Socket otherSocket : map.getPlayers().keySet()) {
+			// Check to make sure the player isn't trying to move too fast
+			//Long curTime = new Date().getTime();
+			//if (curTime - yourPlayer.getLastMovedTime() > 25) {
+				//yourPlayer.setLastMovedTime(curTime);
+				yourPlayer.setLocation(newX, newY);
+				
 				// Send you all other players on the map
+				String playerMoved = "PLAYER_MOVED:" + yourPlayer.getId() + "," + 
+													   yourPlayer.getX() + "," + 
+													   yourPlayer.getY();
 				
-				if (players.get(otherSocket).getId() != yourPlayer.getId()) {
-					try {
-						new PrintWriter(otherSocket.getOutputStream(), true).println(playerMoved);
-					} catch (Exception ex) {
-						logger.error(ex);
-					}
-				}
-				
-			}
+				sendAllMapBut(socket, playerMoved);
+			//} else {
+			//	logger.info(socket.getInetAddress().getHostAddress() + " is trying to move too fast!");
+			//}
 			
 		}
 	}
