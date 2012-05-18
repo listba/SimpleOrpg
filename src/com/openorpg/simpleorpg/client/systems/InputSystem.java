@@ -1,5 +1,6 @@
 package com.openorpg.simpleorpg.client.systems;
 import java.awt.Font;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 
 import org.newdawn.slick.Color;
@@ -67,7 +68,7 @@ public class InputSystem extends BaseEntitySystem implements KeyListener {
 		Entity youEntity = world.getTagManager().getEntity("YOU");
 		Location youLocation = locationMapper.get(youEntity);
 		Networking net = networkingMapper.get(youEntity);
-		PriorityBlockingQueue<String> sendMessages = net.getSendMessages();
+		ArrayBlockingQueue<String> sendMessages = net.getSendMessages();
 		if (world.getTagManager().getEntity("INPUT") != null) {
 			inputEntity = world.getTagManager().getEntity("INPUT");
 		}
@@ -154,6 +155,8 @@ public class InputSystem extends BaseEntitySystem implements KeyListener {
 			case Input.KEY_RSHIFT:
 			case Input.KEY_LCONTROL:
 			case Input.KEY_RCONTROL:
+			case Input.KEY_LALT:
+			case Input.KEY_RALT:
 				break;
 			default:
 				this.c = c;

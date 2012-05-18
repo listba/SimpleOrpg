@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 
 import org.newdawn.slick.geom.Vector2f;
@@ -68,7 +69,9 @@ public class NetworkingSystem extends BaseEntityProcessingSystem {
 									String receivedLine;
 									while ((receivedLine = in.readLine()) != null) {
 										logger.info(receivedLine);
-										networking.getReceivedMessages().add(receivedLine);
+										networking.getReceivedMessages().put(receivedLine);
+										//networking.getReceivedMessages().
+										//networking.getReceivedMessages().
 									}
 									
 								} catch (Exception ex) {
@@ -90,21 +93,21 @@ public class NetworkingSystem extends BaseEntityProcessingSystem {
 			
 		// Handle messages
 		} else {
-			PriorityBlockingQueue<String> receivedQueue = networking.getReceivedMessages();
-			PriorityBlockingQueue<String> sendQueue = networking.getSendMessages();
+			ArrayBlockingQueue<String> receivedQueue = networking.getReceivedMessages();
+			ArrayBlockingQueue<String> sendQueue = networking.getSendMessages();
 			readMessages(receivedQueue);
 			sendMessages(sendQueue, networking.getOut());
 		}
 	}
 	
-	private void sendMessages(PriorityBlockingQueue<String> sendQueue, PrintWriter out) {
+	private void sendMessages(ArrayBlockingQueue<String> sendQueue, PrintWriter out) {
 		for (int i=0; i<sendQueue.size(); i++) {
 			String message = sendQueue.poll();
 			out.println(message);
 		}
 	}
 	
-	private void readMessages(PriorityBlockingQueue<String> receivedQueue) {
+	private void readMessages(ArrayBlockingQueue<String> receivedQueue) {
 		for (int i=0; i<receivedQueue.size(); i++) {
 			String message = receivedQueue.poll();
 			String id = message.toUpperCase();

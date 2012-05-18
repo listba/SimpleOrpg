@@ -2,6 +2,7 @@ package com.openorpg.simpleorpg.client.components;
 
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 
 import com.artemis.Component;
@@ -13,8 +14,8 @@ public class Networking extends Component {
 	private String ip;
 	private int port;
 	private PrintWriter out = null;
-	private final PriorityBlockingQueue<String> receivedMessages = new PriorityBlockingQueue<String>();
-	private final PriorityBlockingQueue<String> sendMessages = new PriorityBlockingQueue<String>();
+	private final ArrayBlockingQueue<String> receivedMessages = new ArrayBlockingQueue<String>(100);
+	private final ArrayBlockingQueue<String> sendMessages = new ArrayBlockingQueue<String>(100);
 	
 	public Networking(String ip, int port) {
 		setIp(ip);
@@ -45,11 +46,11 @@ public class Networking extends Component {
 		this.socket = clientSocket;
 	}
 
-	public PriorityBlockingQueue<String> getReceivedMessages() {
+	public synchronized ArrayBlockingQueue<String> getReceivedMessages() {
 		return receivedMessages;
 	}
 	
-	public PriorityBlockingQueue<String> getSendMessages() {
+	public ArrayBlockingQueue<String> getSendMessages() {
 		return sendMessages;
 	}
 
