@@ -1,12 +1,10 @@
 package com.openorpg.simpleorpg.server.net;
 
 import java.net.Socket;
-import java.util.Date;
 
 import org.newdawn.slick.tiled.TiledMap;
 
 import com.openorpg.simpleorpg.managers.ResourceManager;
-import com.openorpg.simpleorpg.server.Map;
 import com.openorpg.simpleorpg.server.Player;
 
 public class MoveHandler extends MessageHandler {
@@ -20,7 +18,6 @@ public class MoveHandler extends MessageHandler {
 	public void handleMessage(Socket socket) {
 		synchronized(this) {
 			Player yourPlayer = players.get(socket);
-			Map map = maps.get(yourPlayer.getMapRef());
 			int newX = yourPlayer.getX(), newY = yourPlayer.getY();
 			if (payload.equals("UP")) {
 				newY -= 1;
@@ -35,7 +32,6 @@ public class MoveHandler extends MessageHandler {
 			// Check for collisions
 			ResourceManager manager = ResourceManager.getInstance();
 			TiledMap tiledMap = (TiledMap)manager.getResource(yourPlayer.getMapRef(), true).getObject();
-			logger.info(tiledMap.getWidth());
 			
 			// Bounds check
 			if (newY < tiledMap.getHeight() && newX < tiledMap.getWidth() &&
@@ -58,13 +54,8 @@ public class MoveHandler extends MessageHandler {
 					//} else {
 					//	logger.info(socket.getInetAddress().getHostAddress() + " is trying to move too fast!");
 					//}
-				} else {
-					logger.error("COLLISION");
 				}
-			} else {
-				logger.error("COLLISION");
 			}
-			
 		}
 	}
 
