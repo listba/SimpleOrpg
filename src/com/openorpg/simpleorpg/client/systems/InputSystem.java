@@ -23,7 +23,7 @@ import com.openorpg.simpleorpg.client.components.Movement;
 import com.openorpg.simpleorpg.client.components.Networking;
 import com.openorpg.simpleorpg.client.components.ResourceRef;
 import com.openorpg.simpleorpg.client.components.Timer;
-import com.openorpg.simpleorpg.client.managers.ResourceManager;
+import com.openorpg.simpleorpg.managers.ResourceManager;
 
 public class InputSystem extends BaseEntitySystem implements KeyListener {
 	private GameContainer container;
@@ -34,6 +34,7 @@ public class InputSystem extends BaseEntitySystem implements KeyListener {
 	private TrueTypeFont inputFont;
 	private Character c = null;
 	private ComponentMapper<Movement> movementMapper;
+	private ComponentMapper<ResourceRef> resourceRefMapper;
 	
 	private boolean key_back = false,
 					key_enter = false,
@@ -55,6 +56,7 @@ public class InputSystem extends BaseEntitySystem implements KeyListener {
 		networkingMapper = new ComponentMapper<Networking>(Networking.class, world);
 		locationMapper = new ComponentMapper<Location>(Location.class, world);
 		movementMapper = new ComponentMapper<Movement>(Movement.class, world);
+		resourceRefMapper = new ComponentMapper<ResourceRef>(ResourceRef.class, world);
 		inputFont = new TrueTypeFont(new java.awt.Font("Verdana", Font.PLAIN, 12), false);
 		container.getInput().addKeyListener(this);
 	}
@@ -83,7 +85,7 @@ public class InputSystem extends BaseEntitySystem implements KeyListener {
 				inputEntity = world.createEntity();
 				inputEntity.setTag("INPUT");
 				inputEntity.addComponent(new DrawableText(c.toString()));
-				inputEntity.addComponent(new Timer(25));
+				inputEntity.addComponent(new Timer(75));
 				inputEntity.refresh();
 			} else {
 				DrawableText drawableText = drawableTextMapper.get(inputEntity);
@@ -133,20 +135,35 @@ public class InputSystem extends BaseEntitySystem implements KeyListener {
 				newX += 1;
 			}
 			
+			ImmutableBag<Entity> maps = world.getGroupManager().getEntities("MAP");
+			ResourceManager manager = ResourceManager.getInstance();
+			
 			if (key_up || key_down || key_left || key_right) {
-				Movement yourMovement;
-				if (movementMapper.get(yourEntity) != null) {
-					yourMovement = movementMapper.get(yourEntity);
-				} else {
-					yourMovement = new Movement(100);
-					yourEntity.addComponent(yourMovement);
-					yourEntity.refresh();
-				}
-				
-				if (yourMovement.isFinished()) {
-					sendMessages.add(moveMessage);
-					yourLocation.getPosition().set(newX, newY);
-					yourMovement.reset();
+				// Check for collision & move the player
+				if (maps.get(0) != null) {
+					String mapResName = resourceRefMapper.get(maps.get(0)).getResourceName();
+					TiledMap map = (TiledMap)manager.getResource(mapResName).getObject();
+					// Bounds Check
+					if (newX < map.getWidth() && newY < map.getHeight() &&
+						newX >= 0 && newY >= 0) {
+						// Collision Check
+						if (map.getTileId(newX, newY, 3) == 0) {
+							Movement yourMovement;
+							if (movementMapper.get(yourEntity) != null) {
+								yourMovement = movementMapper.get(yourEntity);
+							} else {
+								yourMovement = new Movement(100);
+								yourEntity.addComponent(yourMovement);
+								yourEntity.refresh();
+							}
+							
+							if (yourMovement.isFinished()) {
+								sendMessages.add(moveMessage);
+								yourLocation.getPosition().set(newX, newY);
+								yourMovement.reset();
+							}
+						}
+					}
 				}
 			}
 		}
@@ -157,7 +174,7 @@ public class InputSystem extends BaseEntitySystem implements KeyListener {
 	@Override
 	public void keyPressed(int key, char c) {
 		
-		logger.info((int)c + " " + key);
+		// If alphanumeric
 		if (c > 31 && c < 127) {
 			this.c = c;
 		}

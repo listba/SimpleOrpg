@@ -1,12 +1,9 @@
-package com.openorpg.simpleorpg.client.managers;
+package com.openorpg.simpleorpg.managers;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 import org.newdawn.slick.SlickException;
-
-
 
 public class ResourceManager {
 	private static final ResourceManager instance = new ResourceManager();

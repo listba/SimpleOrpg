@@ -1,4 +1,4 @@
-package com.openorpg.simpleorpg.client.managers;
+package com.openorpg.simpleorpg.managers;
 
 public class Resource {
 	

@@ -1,4 +1,4 @@
-package com.openorpg.simpleorpg.client.managers;
+package com.openorpg.simpleorpg.managers;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -13,18 +13,10 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.log4j.Logger;
-import org.newdawn.slick.AngelCodeFont;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Sound;
 import org.newdawn.slick.SpriteSheet;
-import org.newdawn.slick.UnicodeFont;
-import org.newdawn.slick.font.effects.ColorEffect;
 import org.newdawn.slick.loading.LoadingList;
-import org.newdawn.slick.particles.ParticleIO;
-import org.newdawn.slick.particles.ParticleSystem;
-import org.newdawn.slick.tests.PedigreeTest;
 import org.newdawn.slick.tiled.TiledMap;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -32,7 +24,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.openorpg.simpleorpg.client.managers.Resource.ResourceType;
+import com.openorpg.simpleorpg.managers.Resource.ResourceType;
 
 public class ResourceFactory {
 	private final Logger logger = Logger.getLogger(getClass());

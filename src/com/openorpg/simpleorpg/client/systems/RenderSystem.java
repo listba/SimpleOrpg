@@ -19,7 +19,7 @@ import com.openorpg.simpleorpg.client.components.Networking;
 import com.openorpg.simpleorpg.client.components.ResourceRef;
 import com.openorpg.simpleorpg.client.components.Say;
 import com.openorpg.simpleorpg.client.components.Timer;
-import com.openorpg.simpleorpg.client.managers.ResourceManager;
+import com.openorpg.simpleorpg.managers.ResourceManager;
 
 public class RenderSystem extends BaseEntitySystem {
 	private ComponentMapper<ResourceRef> resourceRefMapper;
