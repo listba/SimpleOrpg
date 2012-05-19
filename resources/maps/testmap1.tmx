@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="25" height="19" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="Left" value="testmap"/>
+ </properties>
+ <tileset firstgid="1" name="Odyssey" tilewidth="32" tileheight="32">
+  <image source="../graphics/tiles.png" trans="000000" width="224" height="288"/>
+ </tileset>
+ <tileset firstgid="64" name="Collision" tilewidth="32" tileheight="32">
+  <image source="../graphics/collision.png" width="64" height="32"/>
+ </tileset>
+ <layer name="Ground" width="25" height="19">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC1NkYGBQHMWjeBSP4lE8ikcxzTAAwJQ15WwHAAA=
+  </data>
+ </layer>
+ <layer name="Background" width="25" height="19">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC72UUQ6AMAhDuZL+6+5/K/0xIaSUbiM24cPN8OgIDDMbIT7FcxTxXwtnSEpexEA5M4Yi5kVlHIsc9L0rlJu9paLrjTswYs2dHjyn4nmdTRzE3ZU6V12cPz2puyCTnx/Uw2p2Ot6P5WN9W+VUTMSbya/scyN3jJfNJfNV1afsK9Yf1a/iNZuV1Rp9vgf4VK3qbAcAAA==
+  </data>
+ </layer>
+ <layer name="Foreground" width="25" height="19">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC72UUQ7AIAhDPdaS7f7n2j63hgLVuiZ8+CGPgjjGV4cYeDc7K2IcJ4NxovOqotxZLzs6n7iAgTU7Pbw5FW8HJ+I6GPi+HLNhnD89sf3ZxWFs5z/A9nKVp3pQWVVOhze2l5mvqr7Of5XNp+u345XtymyNVa9Ryhwi/g10ZZYqbAcAAA==
+  </data>
+ </layer>
+ <layer name="Collision" width="25" height="19">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+XNsREAMAhCUUZz/6nSW+QwCE3+HaW+AlDm9RIGU8KYOkoOo984jJvrNBgnYWxZKYe1Uo7qTQzFe3VYS/nPepvGbzuBNsTqbAcAAA==
+  </data>
+ </layer>
+</map>
