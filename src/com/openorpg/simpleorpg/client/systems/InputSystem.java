@@ -144,10 +144,14 @@ public class InputSystem extends BaseEntitySystem implements KeyListener {
 					String mapResName = resourceRefMapper.get(maps.get(0)).getResourceName();
 					TiledMap map = (TiledMap)manager.getResource(mapResName).getObject();
 					// Bounds Check
-					if (newX < map.getWidth() && newY < map.getHeight() &&
-						newX >= 0 && newY >= 0) {
+					if (newX <= map.getWidth() && newY <= map.getHeight() &&
+						newX >= -1 && newY >= -1) {
 						// Collision Check
-						if (map.getTileId(newX, newY, 3) == 0) {
+						int collisionId;
+						try {
+							collisionId = map.getTileId(newX, newY, 3);
+						} catch (Exception ex) { collisionId = 0; }
+						if (collisionId == 0) {
 							Movement yourMovement;
 							if (movementMapper.get(yourEntity) != null) {
 								yourMovement = movementMapper.get(yourEntity);

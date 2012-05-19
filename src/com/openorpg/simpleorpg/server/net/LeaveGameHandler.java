@@ -9,9 +9,9 @@ public class LeaveGameHandler extends MessageHandler {
 	@Override
 	public void handleMessage(Socket socket) {
 		try {
-			MessageHandler leaveMapHandler = new LeaveMapHandler();
-			leaveMapHandler.handleMessage(socket);
 			synchronized(this) {
+				MessageHandler leaveMapHandler = new LeaveMapHandler();
+				leaveMapHandler.handleMessage(socket);
 				Player yourPlayer = players.get(socket);
 				String leaveMessage = "BROADCAST:#FF0000," + yourPlayer.getName() + " has left the game!";
 				sendAllMapBut(socket, leaveMessage);

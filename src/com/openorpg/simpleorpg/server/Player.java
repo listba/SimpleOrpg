@@ -12,7 +12,7 @@ public class Player {
 	public Player(String name, String ref, String mapRef) {
 		setName(name);
 		setRef(ref);
-		mapRef(mapRef);
+		setMapRef(mapRef);
 		setId(numPlayers);
 		synchronized(this) {
 			numPlayers += 1;
@@ -56,7 +56,7 @@ public class Player {
 		return mapRef;
 	}
 
-	public void mapRef(String mapRef) {
+	public void setMapRef(String mapRef) {
 		this.mapRef = mapRef;
 	}
 

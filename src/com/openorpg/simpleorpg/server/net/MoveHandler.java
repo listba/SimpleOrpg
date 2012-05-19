@@ -55,6 +55,45 @@ public class MoveHandler extends MessageHandler {
 					//	logger.info(socket.getInetAddress().getHostAddress() + " is trying to move too fast!");
 					//}
 				}
+			// if you failed the bounds check we might warp you to the next map
+			} else {
+				// Right
+				String warpTo = "";
+				if (newX >= tiledMap.getWidth()) {
+					warpTo = tiledMap.getMapProperty("Right", "");
+					newX = 0;
+				}
+				
+				// Left
+				if (newX <= -1) {
+					warpTo = tiledMap.getMapProperty("Left", "");
+					newX = tiledMap.getWidth()-1;
+				}
+				
+				// Up
+				if (newY <= -1) {
+					warpTo = tiledMap.getMapProperty("Up", "");
+					newY = tiledMap.getHeight()-1;
+				}
+				
+				// Down
+				if (newY >= tiledMap.getHeight()) {
+					warpTo = tiledMap.getMapProperty("Down", "");
+					newY = 0;
+				}
+				
+				if (!warpTo.equals("")) {
+					// Leave the current map
+					MessageHandler leavMapHandler = new LeaveMapHandler();
+					leavMapHandler.handleMessage(socket);
+					
+					yourPlayer.setLocation(newX, newY);
+					yourPlayer.setMapRef(warpTo);
+					
+					// Join the new map
+					MessageHandler joinMapHandler = new JoinMapHandler();
+					joinMapHandler.handleMessage(socket);
+				}
 			}
 		}
 	}

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="25" height="19" tilewidth="32" tileheight="32">
+ <properties>
+  <property name="Left" value="testmap2"/>
+  <property name="Right" value="testmap1"/>
+ </properties>
  <tileset firstgid="1" name="Odyssey" tilewidth="32" tileheight="32">
   <image source="../graphics/tiles.png" trans="000000" width="224" height="288"/>
  </tileset>
@@ -8,22 +12,22 @@
  </tileset>
  <layer name="Ground" width="25" height="19">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC1NkYGBQHMWjeBSP4lE8ikcxzTAAwJQ15WwHAAA=
+   H4sIAAAAAAAAC1NkYGBQBGITKE1LTA87RvEoHuzYmAw9xOQdYySzybGDFLcbE+kmauDhUjYN9/KP1v4zQcJD0Q8AVWhAq2wHAAA=
   </data>
  </layer>
  <layer name="Background" width="25" height="19">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC7NnYGCwpzFmwMJHFyPWnOEKhqP/SPETOf4nJV2Qog5bGqUGIJQ3COklRp7cPESsG8jNp6SmBXLsoYcdpILBYgel9tAjfRFjPrX8Qg17iM0vMDYAkNbl0mwHAAA=
+   H4sIAAAAAAAAC7WV0Q0AIQhDWelcwP238v+Coa9gEz+USsUU3RGxH49I5v81NY+KD/IzrAaH6tP6KCbug4LU5NRPfEF4mUcnUPVGtVeJuz10i6+E42hQLzg6LzXcPp9+11yNrpbqr5uW6vfpP6WjUeWlZz2uFbhnbAcAAA==
   </data>
  </layer>
  <layer name="Foreground" width="25" height="19">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgYGCwQMIwYEEiHs5gOPqPFD+R439S0gUp6rClUWoAXGmaGDuIlSc3DxHrBnLzKalpgRx76GEHqWCw2EGpPfRIX8SYTy2/UMMeYvMLLjYtyhUAFLkvCWwHAAA=
+   H4sIAAAAAAAAC92VwQoAIAhD/Sz//8s6BR6UthkRDjwlvgmTzMw81JaTNVkT92N2UvZncsH0ZRm9oSrTCAN9V28I9aDeKZsFhfOCweoXRpeF5qtiMTlBZyN/Sodxmqt4rXxnHlHFeQseK2nPbAcAAA==
   </data>
  </layer>
  <layer name="Collision" width="25" height="19">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2OQQoAIAgEfdr+/1VdJcSmpChoYA+mNsrMtDkW1P0b/efzDto063fo3syckrqCglAH7UeO3pfdNnKQZPcRVj0nHLPc4qh6qg56Q9VDoI6Rh/R9GvxG5L5sBwAA
+   H4sIAAAAAAAAC+2OSQoAIAwD+7T8/1VeRWodlYqCgRy6TmRmSrY5ddujf77ekZJ26xt6N7OnoN6RHFMGnXuMlhdlGzGIo3xEq5wTjFndwtjlUEaPR/OscGiGLAZ1AUVoQdpsBwAA
   </data>
  </layer>
 </map>

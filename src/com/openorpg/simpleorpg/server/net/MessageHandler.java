@@ -20,6 +20,8 @@ public abstract class MessageHandler {
 	// Load in maps from the database
 	public static void init() {
 		maps.put("testmap", new Map());
+		maps.put("testmap1", new Map());
+		maps.put("testmap2", new Map());
 	}
 	
 	public static MessageHandler create(String message) {

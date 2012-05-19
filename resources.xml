@@ -3,6 +3,8 @@
 	<resource id="whiteImage" type="image" path="graphics/white.png" />
 	<resource id="redImage" type="image" path="graphics/red.png" />
 	<resource id="testmap" type="tiledmap" path="maps/testmap.tmx" />
+	<resource id="testmap1" type="tiledmap" path="maps/testmap1.tmx" />
+	<resource id="testmap2" type="tiledmap" path="maps/testmap2.tmx" />
 	<resource id="knightImage" type="image" path="graphics/knight.png" />
 	<resource id="mageImage" type="image" path="graphics/mage.png" />
 </resources>
