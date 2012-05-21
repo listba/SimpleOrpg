@@ -84,8 +84,8 @@ public class MoveHandler extends MessageHandler {
 				
 				if (!warpTo.equals("")) {
 					// Leave the current map
-					MessageHandler leavMapHandler = new LeaveMapHandler();
-					leavMapHandler.handleMessage(socket);
+					MessageHandler leaveMapHandler = new LeaveMapHandler();
+					leaveMapHandler.handleMessage(socket);
 					
 					yourPlayer.setLocation(newX, newY);
 					yourPlayer.setMapRef(warpTo);

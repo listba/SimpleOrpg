@@ -18,13 +18,13 @@ public class LeaveMapHandler extends MessageHandler {
 				// Remove you from the map
 				map.getPlayers().remove(socket);
 				
-				// Send all other players on the map your player
 				String youLeftMap = "PLAYER_LEFT_MAP:" + yourPlayer.getId();
 				String otherLeftMap = "";
 				for (Socket otherSocket : map.getPlayers().keySet()) {
 					Player player = map.getPlayers().get(otherSocket);
-					// Send you all other players on the map
+					// Send all other players on the map your player
 					otherLeftMap += "PLAYER_LEFT_MAP:" + player.getId() + "\n";
+					// Send you all other players on the map
 					sendTo(otherSocket, youLeftMap);
 				}
 				sendTo(socket, otherLeftMap);

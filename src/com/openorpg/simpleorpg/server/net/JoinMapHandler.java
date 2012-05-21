@@ -1,6 +1,5 @@
 package com.openorpg.simpleorpg.server.net;
 
-import java.io.PrintWriter;
 import java.net.Socket;
 
 import com.openorpg.simpleorpg.server.Map;
@@ -16,10 +15,7 @@ public class JoinMapHandler extends MessageHandler {
 		try {
 			synchronized(this) {
 				Player yourPlayer = players.get(socket);
-				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-				String warpMessage = "WARP:" + yourPlayer.getMapRef() + "," + yourPlayer.getX() + "," + yourPlayer.getY();
-				out.println(warpMessage);
-				Map map = maps.get(yourPlayer.getMapRef());		
+				Map map = maps.get(yourPlayer.getMapRef());
 				
 				// Send all other players on the map your player
 				String youJoinedMap = "PLAYER_JOINED_MAP:" + yourPlayer.getId() + "," + 
@@ -31,7 +27,7 @@ public class JoinMapHandler extends MessageHandler {
 				String otherJoinedMap = "";
 				for (Socket otherSocket : map.getPlayers().keySet()) {
 					Player player = map.getPlayers().get(otherSocket);
-					// Send you all other players on the map
+					// Send you to all other players on the map
 					otherJoinedMap += "PLAYER_JOINED_MAP:" + player.getId() + "," + 
 														  	 player.getName() + "," + 
 														     player.getRef() + "," + 
@@ -40,10 +36,16 @@ public class JoinMapHandler extends MessageHandler {
 					
 					sendTo(otherSocket, youJoinedMap);
 				}
-				out.println(otherJoinedMap);
-				
-				// Add the player to the map
+
+				// Add you to the map
 				map.getPlayers().put(socket, yourPlayer);
+				
+				// Send you all other players on the map
+				sendTo(socket, otherJoinedMap);
+				
+				// Send you the warp message
+				String warpMessage = "WARP:" + yourPlayer.getMapRef() + "," + yourPlayer.getX() + "," + yourPlayer.getY();
+				sendTo(socket, warpMessage);
 			}
 
 		} catch (Exception ex) {

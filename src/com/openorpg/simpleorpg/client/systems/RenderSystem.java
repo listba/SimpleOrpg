@@ -14,6 +14,7 @@ import com.artemis.Entity;
 import com.artemis.utils.ImmutableBag;
 import com.openorpg.simpleorpg.client.components.ColorComponent;
 import com.openorpg.simpleorpg.client.components.DrawableText;
+import com.openorpg.simpleorpg.client.components.Fade;
 import com.openorpg.simpleorpg.client.components.Location;
 import com.openorpg.simpleorpg.client.components.Networking;
 import com.openorpg.simpleorpg.client.components.ResourceRef;
@@ -30,6 +31,7 @@ public class RenderSystem extends BaseEntitySystem {
 	private ComponentMapper<DrawableText> drawableTextMapper;
 	private ComponentMapper<Timer> timerMapper;
 	private ComponentMapper<Say> sayMapper;
+	private ComponentMapper<Fade> fadeMapper;
 	private TrueTypeFont broadcastFont;
 	private TrueTypeFont nameFont;
 	private TrueTypeFont inputFont;
@@ -50,6 +52,7 @@ public class RenderSystem extends BaseEntitySystem {
 		networkingMapper = new ComponentMapper<Networking>(Networking.class, world);
 		timerMapper = new ComponentMapper<Timer>(Timer.class, world);
 		sayMapper = new ComponentMapper<Say>(Say.class, world);
+		fadeMapper = new ComponentMapper<Fade>(Fade.class, world);
 		broadcastFont = new TrueTypeFont(new java.awt.Font("Verdana", Font.BOLD, 14), false);
 		saysFont = new TrueTypeFont(new java.awt.Font("Verdana", Font.BOLD, 12), false);
 		nameFont = new TrueTypeFont(new java.awt.Font("Verdana", Font.PLAIN, 12), false);
@@ -113,6 +116,8 @@ public class RenderSystem extends BaseEntitySystem {
 				tiledMap.render(0, 0, 2);
 			}
 			
+
+			
 			// Render player names and say text
 			for (int i=0; i<players.size(); i++) {
 				Entity playerEntity = players.get(i);
@@ -139,6 +144,21 @@ public class RenderSystem extends BaseEntitySystem {
 							playerEntity.removeComponent(playerSay);
 							playerEntity.refresh();
 						}
+					}
+				}
+			}
+			
+			// Render the fading effect
+			for (int i=0; i<maps.size(); i++) {
+				Entity mapEntity = maps.get(i);
+				if (fadeMapper.get(mapEntity) != null) {
+					Fade fade = fadeMapper.get(mapEntity);
+					int alpha = fade.getAlpha();
+					graphics.setColor(new Color(0,0,0,alpha));
+					graphics.fillRect(0, 0, container.getWidth(), container.getHeight());
+					fade.tick();
+					if (alpha <= 0) {
+						mapEntity.removeComponent(fadeMapper.get(mapEntity));
 					}
 				}
 			}

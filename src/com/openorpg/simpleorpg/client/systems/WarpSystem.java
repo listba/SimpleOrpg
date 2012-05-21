@@ -5,6 +5,7 @@ import org.newdawn.slick.geom.Vector2f;
 import com.artemis.ComponentMapper;
 import com.artemis.Entity;
 import com.artemis.utils.ImmutableBag;
+import com.openorpg.simpleorpg.client.components.Fade;
 import com.openorpg.simpleorpg.client.components.Location;
 import com.openorpg.simpleorpg.client.components.ResourceRef;
 import com.openorpg.simpleorpg.client.components.Warp;
@@ -42,6 +43,7 @@ public class WarpSystem extends BaseEntityProcessingSystem {
 			Entity map = world.createEntity();
 			map.setGroup("MAP");
 			map.addComponent(new ResourceRef(warp.getMapRef()));
+			map.addComponent(new Fade(4, false));
 			map.refresh();
 			
 			Location playerLocation = locationMapper.get(e);

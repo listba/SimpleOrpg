@@ -1,7 +1,6 @@
 package com.openorpg.simpleorpg.client;
 
 
-import java.awt.Font;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -10,16 +9,12 @@ import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.geom.Vector2f;
 
 import com.artemis.Entity;
 import com.artemis.EntitySystem;
 import com.artemis.SystemManager;
 import com.artemis.World;
 import com.openorpg.simpleorpg.client.components.Networking;
-import com.openorpg.simpleorpg.client.components.ResourceRef;
-import com.openorpg.simpleorpg.client.components.Warp;
 import com.openorpg.simpleorpg.client.systems.InputSystem;
 import com.openorpg.simpleorpg.client.systems.NetworkingSystem;
 import com.openorpg.simpleorpg.client.systems.RenderSystem;
@@ -60,7 +55,6 @@ public class Client extends BasicGame {
 	@Override
 	public void init(GameContainer container) throws SlickException {
 		container.setVSync(true);
-		container.getGraphics().setFont(new TrueTypeFont(new java.awt.Font("Verdana", Font.PLAIN, 12), false));
 		world = new World();
 		systemManager = world.getSystemManager();
 		warpSystem = systemManager.setSystem(new WarpSystem());
@@ -93,8 +87,8 @@ public class Client extends BasicGame {
 			throws SlickException {
 		world.loopStart();
 		world.setDelta(delta);
-		warpSystem.process();
 		networkingSystem.process();
+		warpSystem.process();
 		inputSystem.process();
 	}
 

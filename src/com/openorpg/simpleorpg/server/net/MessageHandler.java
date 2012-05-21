@@ -81,7 +81,7 @@ public abstract class MessageHandler {
 	}
 	
 	protected void sendTo(Socket socket, String message) {
-		if (socket != null && !socket.isClosed()) {
+		if (socket != null && !socket.isClosed() && !message.isEmpty()) {
 			try {
 				PrintWriter playerOut = new PrintWriter(socket.getOutputStream(), true);
 				playerOut.println(message);
