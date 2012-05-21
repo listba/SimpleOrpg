@@ -20,6 +20,25 @@ public class ResourceManager {
 		return instance;
 	}
 	
+	public Resource getResource(String id, boolean headless) {
+		Resource resource = null;
+		ResourceFactory resourceFactory = ResourceFactory.getInstance();
+		
+		try {
+			resource = resources.get(id);
+			//resource = resourceFactory.create(id);
+			if (resource == null) {
+				// Create the resource
+				resource = resourceFactory.create(id, headless);
+				resources.put(id, resource);
+			}
+			
+		} catch(SlickException ex) {
+			logger.error(ex);
+		}
+		return resource;
+	}
+	
 	public Resource getResource(String id) {
 		Resource resource = null;
 		ResourceFactory resourceFactory = ResourceFactory.getInstance();
@@ -29,7 +48,7 @@ public class ResourceManager {
 			//resource = resourceFactory.create(id);
 			if (resource == null) {
 				// Create the resource
-				resource = resourceFactory.create(id);
+				resource = resourceFactory.create(id, false);
 				resources.put(id, resource);
 			}
 			

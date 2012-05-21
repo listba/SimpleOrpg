@@ -55,7 +55,7 @@ public class ResourceFactory {
 	
 	
 
-	public Resource create(String id) throws SlickException {
+	public Resource create(String id, boolean headless) throws SlickException {
 		Element resourceElement = resourceElements.get(id.toLowerCase());
 		if (resourceElement == null) throw new RuntimeException("Cannot find ID " + id + " in XML document");
 		String type = resourceElement.getAttribute("type").toLowerCase();
@@ -69,7 +69,11 @@ public class ResourceFactory {
 		if (type.equals("image")) {
 			return new Resource(id, ResourceType.IMAGE, path, new Image(path));
 		} else if (type.equals("tiledmap")) {
-			return new Resource(id, ResourceType.TILED_MAP, path, new TiledMap(path));
+			if (headless) {
+				return new Resource(id, ResourceType.TILED_MAP, path, new TiledMap(path, false));
+			} else {
+				return new Resource(id, ResourceType.TILED_MAP, path, new TiledMap(path, true));
+			}
 		} else if (type.equals("spritesheet")) {
 			int width = Integer.valueOf(resourceElement.getAttribute("width"));
 			int height = Integer.valueOf(resourceElement.getAttribute("height"));
