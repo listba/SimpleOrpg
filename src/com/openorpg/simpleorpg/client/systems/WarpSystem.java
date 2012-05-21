@@ -43,7 +43,7 @@ public class WarpSystem extends BaseEntityProcessingSystem {
 			Entity map = world.createEntity();
 			map.setGroup("MAP");
 			map.addComponent(new ResourceRef(warp.getMapRef()));
-			map.addComponent(new Fade(4, false));
+			map.addComponent(new Fade(8, false));
 			map.refresh();
 			
 			Location playerLocation = locationMapper.get(e);
