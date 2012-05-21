@@ -38,7 +38,7 @@ public class JoinMapHandler extends MessageHandler {
 														     player.getX() + "," + 
 														     player.getY() + "\n";
 					
-					new PrintWriter(otherSocket.getOutputStream(), true).println(youJoinedMap);
+					sendTo(otherSocket, youJoinedMap);
 				}
 				out.println(otherJoinedMap);
 				

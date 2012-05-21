@@ -1,6 +1,5 @@
 package com.openorpg.simpleorpg.server.net;
 
-import java.io.PrintWriter;
 import java.net.Socket;
 
 import com.openorpg.simpleorpg.server.Player;
@@ -24,8 +23,7 @@ public class SayHandler extends MessageHandler {
 			logger.info(payload.length());
 			logger.info(sayMessage);
 			try {
-				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-				out.println(youSayMessage);
+				sendTo(socket, youSayMessage);
 			} catch (Exception ex) {
 				logger.error(ex);
 			}

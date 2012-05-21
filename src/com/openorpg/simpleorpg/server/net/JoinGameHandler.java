@@ -1,6 +1,4 @@
 package com.openorpg.simpleorpg.server.net;
-
-import java.io.PrintWriter;
 import java.net.Socket;
 
 import com.openorpg.simpleorpg.server.Player;
@@ -21,9 +19,8 @@ public class JoinGameHandler extends MessageHandler {
 		yourPlayer.setLocation(players.size()*2+5, 5-players.size());
 		
 		try {
-			PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-			out.println("SET_REF:YOU," + yourPlayer.getRef());
-			out.println("SET_NAME:YOU," + yourPlayer.getName());
+			sendTo(socket, "SET_REF:YOU," + yourPlayer.getRef());
+			sendTo(socket, "SET_NAME:YOU," + yourPlayer.getName());
 			synchronized(this) {
 				// Add the player to the game
 				players.put(socket, yourPlayer);

@@ -62,7 +62,7 @@ public abstract class MessageHandler {
 		for (Socket otherSocket : map.getPlayers().keySet()) {
 			if (players.get(otherSocket).getId() != yourPlayer.getId()) {
 				try {
-					new PrintWriter(otherSocket.getOutputStream(), true).println(message);
+					sendTo(otherSocket, message);
 				} catch (Exception ex) {
 					logger.error(ex);
 				}
@@ -73,7 +73,17 @@ public abstract class MessageHandler {
 	protected synchronized void sendAll(String message) {
 		for (Socket playerSocket : players.keySet()) {
 			try {
-				PrintWriter playerOut = new PrintWriter(playerSocket.getOutputStream(), true);
+				sendTo(playerSocket, message);
+			} catch (Exception ex) {
+				logger.error(ex);
+			}
+		}
+	}
+	
+	protected void sendTo(Socket socket, String message) {
+		if (socket != null && !socket.isClosed()) {
+			try {
+				PrintWriter playerOut = new PrintWriter(socket.getOutputStream(), true);
 				playerOut.println(message);
 			} catch (Exception ex) {
 				logger.error(ex);

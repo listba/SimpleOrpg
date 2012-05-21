@@ -1,6 +1,5 @@
 package com.openorpg.simpleorpg.server.net;
 
-import java.io.PrintWriter;
 import java.net.Socket;
 
 import com.openorpg.simpleorpg.server.Map;
@@ -13,7 +12,8 @@ public class LeaveMapHandler extends MessageHandler {
 		try {			
 			synchronized(this) {
 				Player yourPlayer = players.get(socket);
-				PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+				
+				//PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 				Map map = maps.get(yourPlayer.getMapRef());
 				// Remove you from the map
 				map.getPlayers().remove(socket);
@@ -25,14 +25,13 @@ public class LeaveMapHandler extends MessageHandler {
 					Player player = map.getPlayers().get(otherSocket);
 					// Send you all other players on the map
 					otherLeftMap += "PLAYER_LEFT_MAP:" + player.getId() + "\n";
-
-					new PrintWriter(otherSocket.getOutputStream(), true).println(youLeftMap);
+					sendTo(otherSocket, youLeftMap);
 				}
-				
-				out.println(otherLeftMap);
+				sendTo(socket, otherLeftMap);
 			}
 
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			logger.error(ex);
 		}
 	}
