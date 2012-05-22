@@ -6,5 +6,5 @@ How to git and build using Eclipse
 4. Open up git bash cd into your workspace and type 
 `git clone https://YOURUSERNAME@github.com/coxry/SimpleOrpg.git`
 5. Open up Eclipse go to File > New > Java Project and make the project name SimpleOrpg
-6. Right click the project (SimpleOrpg) on the left hand side and select Properties. Navigate to Java Build Path. Click Add External JARs. Browse to the Libraries you downloaded earlier (log4j, slick, lwgl, artemis, jogg, jorbis)
+6. Right click the project (SimpleOrpg) on the left hand side and select Properties. Navigate to Java Build Path. Click Add External JARs. Browse to the Libraries you downloaded earlier (log4j, slick, lwgl, artemis)
 7. While you're still in the Java Build Path click the drop down for lwgl.jar. Click Native library location and browse to lwgl's native folder for your operating system.
