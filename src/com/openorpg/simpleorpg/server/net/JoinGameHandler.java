@@ -16,7 +16,7 @@ public class JoinGameHandler extends MessageHandler {
 								   	   "knightImage", 
 								   	   "testmap");
 		if ((int)(Math.random()*2) == 0) yourPlayer.setRef("mageImage");
-		yourPlayer.setLocation(players.size()*2+5, 5-players.size());
+		yourPlayer.setLocation(5, 5);
 		
 		try {
 			sendTo(socket, "SET_REF:YOU," + yourPlayer.getRef());

@@ -22,6 +22,7 @@ public abstract class MessageHandler {
 		maps.put("testmap", new Map());
 		maps.put("testmap1", new Map());
 		maps.put("testmap2", new Map());
+		maps.put("testmap3", new Map());
 	}
 	
 	public static MessageHandler create(String message) {

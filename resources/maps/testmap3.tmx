@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="25" height="19" tilewidth="32" tileheight="32">
  <properties>
-  <property name="Down" value="testmap3"/>
   <property name="Left" value="testmap2"/>
   <property name="Right" value="testmap1"/>
+  <property name="Up" value="testmap"/>
  </properties>
  <tileset firstgid="1" name="Odyssey" tilewidth="32" tileheight="32">
   <image source="../graphics/tiles.png" trans="000000" width="224" height="288"/>
@@ -13,22 +13,22 @@
  </tileset>
  <layer name="Ground" width="25" height="19">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC1NkYGBQBGITKE1LTA87RvEoHuzYmAw9xOQdYySzybGDFLcbE+kmauDhUjYN9/KP1v4zQcJD0Q8AVWhAq2wHAAA=
+   H4sIAAAAAAAAC1NkYGBQHMWjmM6YCwnT2nx0TA87qGUPITsotYtY88m1h1TzSbGLErOJsYda5uOyh9rmo9tDK/NHMXkYABPfp2tsBwAA
   </data>
  </layer>
  <layer name="Background" width="25" height="19">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC7WVyQ0AIAgEaUkbsP+u/BOIzIKbmHigIwp6zOx8Lha0fV91naoWtI+0GzaUT/2jmjgPInpniv+EQeyiGJ3QKzdecyvjag5l4zuwURg0FhTOT4aa59PvmsrosqrxlbFInEz+KR2GX9fX6V4vaYQKLGwHAAA=
+   H4sIAAAAAAAAC+1UQQ7AIAgjbpc9x33A//9qLgtJ0yDo9LDDmhCVYAsMV0SkBJblQRTXMoFVGlzsZ0Txvf7Re1491n3t1QlxHO/l0Dp7yLCPdJgT95pzqrZV2w0tLzfrjKvmmYhzAz2r3h5N9DE/Q3U87mgmj0DjBvbQm6UZDUWkY/FHfbLA36n1r9AZmgHWhOsKbtbhHo30/o3OyvwZ+p5+fAsX7VARw2wHAAA=
   </data>
  </layer>
  <layer name="Foreground" width="25" height="19">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgYGCwQMIwYEEiHs5guPmP1Dgjx/+k2EGKOmxplBoAV5omxg5i5cnNQ8S6gdx8SmpaIMceethBKhgsdlBqF7HpC5ddpKQTYs0mpk6hxA50c9HZ5LiVkLux2YdLDzY5AAf+14RsBwAA
+   H4sIAAAAAAAAC+2SywkAMAhDM5b7T9ZrG/xTbwaEKppnQQAQvBIKrrOi/my9OqdFxv/2435vByvPKuKwZ9dfm9VyoO9fYVYYvJv19naqyrulXwyP88s/4kyoc0cdxuQfmLNaTegAItMmTGwHAAA=
   </data>
  </layer>
  <layer name="Collision" width="25" height="19">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC92PSwoAMQxCPZr3P1W3pYSMpl9GcJEPeYYAuNkI6rGn3vmreDvAYhHeT85uheHsMalnxMAqQ51HjJGXZftiKM7yKapyTjBcvcKYZTmMiKVmqXD6WzcYqhtD0j6ybAcAAA==
+   H4sIAAAAAAAAC3NgYGBwIIBhgJA6SjCt7UAHtDYf2R5q2EcsoIb5+OyltvnUxPQyfyjbQS/zaWH2KB7FQxkDAFTXugxsBwAA
   </data>
  </layer>
 </map>
