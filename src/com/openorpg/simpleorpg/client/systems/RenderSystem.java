@@ -164,7 +164,6 @@ public class RenderSystem extends BaseEntitySystem {
 						graphics.fillRect(0, 0, container.getWidth(), container.getHeight());
 					}
 				}
-				//tiledMap.render(0, 0, 2);
 			}
 			
 			// Render the fading effect

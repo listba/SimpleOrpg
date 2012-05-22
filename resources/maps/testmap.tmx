@@ -3,8 +3,8 @@
  <properties>
   <property name="Down" value="testmap3"/>
   <property name="Left" value="testmap2"/>
-  <property name="Mask" value="255,0,0,100"/>
   <property name="Right" value="testmap1"/>
+  <property name="Mask" value="75,75,75,75"/>
  </properties>
  <tileset firstgid="1" name="Odyssey" tilewidth="32" tileheight="32">
   <image source="../graphics/tiles.png" trans="000000" width="224" height="288"/>
