@@ -148,6 +148,25 @@ public class RenderSystem extends BaseEntitySystem {
 				}
 			}
 			
+			// Render the map mask
+			for (int i=0; i<maps.size(); i++) {
+				Entity mapEntity = maps.get(i);
+				String ref = resourceRefMapper.get(mapEntity).getResourceName();
+				TiledMap tiledMap = (TiledMap)manager.getResource(ref).getObject();
+				if (!tiledMap.getMapProperty("Mask", "").equals("")) {
+					String maskParts[] = tiledMap.getMapProperty("Mask", "").split(",");
+					if (maskParts.length == 4) {
+						int r = Integer.valueOf(maskParts[0]);
+						int g = Integer.valueOf(maskParts[1]);
+						int b = Integer.valueOf(maskParts[2]);
+						int a = Integer.valueOf(maskParts[3]);
+						graphics.setColor(new Color(r,g,b,a));
+						graphics.fillRect(0, 0, container.getWidth(), container.getHeight());
+					}
+				}
+				//tiledMap.render(0, 0, 2);
+			}
+			
 			// Render the fading effect
 			for (int i=0; i<maps.size(); i++) {
 				Entity mapEntity = maps.get(i);
